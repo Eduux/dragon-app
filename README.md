@@ -29,9 +29,9 @@ http://localhost:4200
 
 3 components 
 
--> Lista de dragões, components/dragons-list, onde editamos, removemos e adicionamos novos dragões.
--> Detalhes do dragão, components/dragons-detail, pagina simples para listar apenas os detalhes de um dragão
--> Login, components/login, componente de login setando o usuário de testes para login na aplicação.
+-> Lista de dragões, components/dragons-list, onde editamos, removemos e adicionamos novos dragões.  
+-> Detalhes do dragão, components/dragons-detail, pagina simples para listar apenas os detalhes de um dragão.  
+-> Login, components/login, componente de login setando o usuário de testes para login na aplicação.  
 
 Todas as rotas protegidas pelos guards/auth, guards/logged
 
@@ -44,8 +44,8 @@ Requisições:
 
 Serviços:
 
--> services/login, utilizando localstorage para simples login da aplicação, verificando, retornando e logando usuário
--> services/dragon, principal serviço da aplicação, consumindo a api informada no teste. Utilizando 5 funções baseadas em CRUD 
+-> services/login, utilizando localstorage para simples login da aplicação, verificando, retornando e logando usuário  
+-> services/dragon, principal serviço da aplicação, consumindo a api informada no teste. Utilizando 5 funções baseadas em CRUD  
 
 
 Muito obrigado!
