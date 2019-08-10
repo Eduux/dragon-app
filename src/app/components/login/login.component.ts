@@ -27,7 +27,7 @@ export class LoginComponent {
     if(await this.verificaForm()){
       this.loginService.logar(this.user.get('login').value, this.user.get('senha').value)
       .then(response => {
-        Swal.fire('Sucesso!', response, 'success'); 
+        //Swal.fire('Sucesso!', response, 'success'); 
         this.router.navigate(['home']);
       }).catch(err => {
         Swal.fire('Erro!', err, 'error'); 

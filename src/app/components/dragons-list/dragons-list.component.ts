@@ -1,15 +1,62 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { LoginService } from 'src/app/services/login.service';
+import { DragonService } from 'src/app/services/dragon.service';
+import { Dragon } from 'src/app/models/dragon';
+import { Router } from '@angular/router';
+
+// Sweet alert
+import Swal from 'sweetalert2'
+// Loader
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dragons-list',
   templateUrl: './dragons-list.component.html',
   styleUrls: ['./dragons-list.component.scss']
 })
-export class DragonsListComponent implements OnInit {
+export class DragonsListComponent {
+  user: string;
+  dragons: Dragon[];
 
-  constructor() { }
+  constructor(public loginService: LoginService, public dragonService: DragonService,
+    public router: Router, private spinner: NgxSpinnerService) {
+    this.user = this.loginService.userLogado.login;  
+    this.listarDragoes();
+  }
 
-  ngOnInit() {
+  listarDragoes(){
+    this.spinner.show();
+    this.dragonService.listarDragoes()
+    .then(response => {
+      this.dragons = response;
+      this.dragons.sort(this.ordena("name"));
+      this.spinner.hide();
+    }).catch(err => {
+      console.log(err);
+      this.spinner.hide();
+      Swal.fire('Erro!', err, 'error');
+    })
+  }
+
+  ordena(property) {
+      var sortOrder = 1;
+      if(property[0] === "-") {
+          sortOrder = -1;
+          property = property.substr(1);
+      }
+      return function (a,b) {
+          if(sortOrder == -1){
+              return b[property].toString().localeCompare(a[property]);
+          }else{
+              return a[property].toString().localeCompare(b[property]);
+          }        
+      }
+  }
+
+
+  logout(){
+    this.loginService.logout();
+    this.router.navigate(['login']);
   }
 
 }

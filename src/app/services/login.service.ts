@@ -8,7 +8,7 @@ export class LoginService {
   private user: User
 
   constructor() {
-    this.user = <User>JSON.parse(localStorage.getItem('currentUser'));
+    this.user = <User>JSON.parse(localStorage.getItem('userDragon'));
   }
 
   // Retorna user logado
@@ -20,7 +20,7 @@ export class LoginService {
   logar(login, senha){
     return new Promise<string>((resolve, reject) =>{
       if(login == 'teste' && senha == '12qw'){
-        localStorage.setItem('currentUser', JSON.stringify({login: login}));
+        localStorage.setItem('userDragon', JSON.stringify({login: login}));
         this.user = {login: login};
         resolve('Logado com sucesso!');
       } else {

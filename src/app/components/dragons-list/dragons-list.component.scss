@@ -1,0 +1,42 @@
+.new-nav {
+    color: white;
+
+    p {
+        margin-bottom: 0;
+        cursor: pointer;
+    }
+}
+
+.dragon-block {
+    margin-top: 30px;
+
+    > div {
+        border: 1px solid #353a40;
+        padding: 13px;
+        border-radius: 5px;
+        position: relative;
+
+        p {
+            margin-bottom: 5px;
+        }
+    }
+}
+
+
+@media (max-width:400px){
+    .navbar {
+        padding: 3px;
+    }
+}
+
+
+.acoes-dragon {
+    position: absolute;
+    right: 12px;
+    bottom: 17px;
+}
+
+.acoes-dragon > i {
+    margin: 0px 5px;
+    cursor: pointer;
+}
