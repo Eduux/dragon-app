@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { LoginService } from 'src/app/services/login.service';
 import { DragonService } from 'src/app/services/dragon.service';
 import { Dragon } from 'src/app/models/dragon';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 // Sweet alert
 import Swal from 'sweetalert2'
 // Loader
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LoginService } from 'src/app/services/login.service';
+
 
 @Component({
   selector: 'app-dragons-list',
@@ -15,18 +17,19 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./dragons-list.component.scss']
 })
 export class DragonsListComponent {
-  user: string;
+  user: User;
   dragons: Dragon[];
 
-  constructor(public loginService: LoginService, public dragonService: DragonService,
-    public router: Router, private spinner: NgxSpinnerService) {
-    this.user = this.loginService.userLogado.login;  
-    this.listarDragoes();
+  constructor(public dragonService: DragonService, public router: Router,
+    private spinner: NgxSpinnerService, public loginService: LoginService) {
+    this.listDragons();
+    this.user = this.loginService.userLogado;
   }
 
-  listarDragoes(){
+  // Lista todos os dragoes por ordem alfabética orderna('nomedapropriedade')
+  listDragons(){
     this.spinner.show();
-    this.dragonService.listarDragoes()
+    this.dragonService.listDragons()
     .then(response => {
       this.dragons = response;
       this.dragons.sort(this.ordena("name"));
@@ -38,6 +41,36 @@ export class DragonsListComponent {
     })
   }
 
+  // Deletar dragão
+  deleteDragon(id, index){
+    console.log(index)
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: "Deseja excluir o dragão?",
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Deletar',
+      cancelButtonText: 'Cancelar'
+    }).then((response) => {
+      if(response.value){
+        this.dragonService.deletedragon(id)
+        .then(response => {
+          console.log(response);
+          this.dragons.splice(index, 1); 
+          Swal.fire(
+            'Deletado',
+            'Dragão deletado com sucesso!',
+            'success'
+          )
+        }).catch(err => {
+          console.log(err);
+          Swal.fire('Erro!', err, 'error');
+        })
+      }
+    })
+  }
+
+  // Função para ordenar os dragões pela propriedade
   ordena(property) {
       var sortOrder = 1;
       if(property[0] === "-") {
@@ -52,7 +85,6 @@ export class DragonsListComponent {
           }        
       }
   }
-
 
   logout(){
     this.loginService.logout();

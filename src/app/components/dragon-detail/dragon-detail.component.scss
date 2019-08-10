@@ -1,0 +1,10 @@
+.dragon-detal {
+    margin-top: 30px;
+    border-bottom: 1px solid;
+}
+
+@media (min-width:800px){
+    .dragon-detal a {
+        float: right;
+    }
+}

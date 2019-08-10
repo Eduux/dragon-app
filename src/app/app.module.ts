@@ -9,15 +9,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { DragonsListComponent } from './components/dragons-list/dragons-list.component';
+import { DragonDetailComponent } from './components/dragon-detail/dragon-detail.component';
 
 // Loader
 import { NgxSpinnerModule } from "ngx-spinner";
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DragonsListComponent,
+    DragonDetailComponent,
   ],
   imports: [
     BrowserModule,

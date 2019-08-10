@@ -1,21 +1,30 @@
-<nav class="navbar navbar-dark bg-dark new-nav">
+<div>
+    <nav class="navbar navbar-dark bg-dark new-nav">
+        <div class="container">
+            <a class="navbar-brand">Usuário: {{user.login}}</a>
+            <p (click)="logout()">Sair <i class="fas fa-sign-out-alt"></i></p>
+        </div>
+    </nav>
+
     <div class="container">
-        <a class="navbar-brand">Usuário: {{user}}</a>
-        <p (click)="logout()">Sair <i class="fas fa-sign-out-alt"></i></p>
+        <div class="page-header">
+            <h1><img src="assets/favicon.png">Dragon App</h1>
+        </div>
     </div>
-</nav>
+</div>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-6 col-lg-6 dragon-block" *ngFor="let dragon of dragons">
+        <div class="col-sm-6 col-lg-6 dragon-block" *ngFor="let dragon of dragons; let i = index">
             <div>
                 <h5>Nome: <b>{{dragon.name}}</b></h5>
                 <p>Tipo: <b>{{dragon.type}}</b></p>
                 <p>Criação: <b>{{dragon.createdAt | date: 'dd/MM/yyyy'}}</b></p>
 
                 <div class="acoes-dragon">
+                    <i [routerLink]="['/dragon', dragon.id]"  class="fas fa-eye"></i>
                     <i class="fas fa-edit"></i>
-                    <i class="fas fa-trash-alt"></i>
+                    <i (click)="deleteDragon(dragon.id, i)" class="fas fa-trash-alt"></i>
                 </div>
             </div>
         </div>

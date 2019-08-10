@@ -10,9 +10,29 @@ export class DragonService {
 
   constructor(public http: HttpClient) { }
 
-  listarDragoes(){
+  listDragons(){
     return new Promise<Dragon[]>((resolve, reject) =>{
       this.http.get<Dragon[]>(this.apiUrl).subscribe(response => {
+        resolve(response);
+      }), err => {
+        reject(err);
+      }
+    })
+  }
+
+  listDragon(id){
+    return new Promise<Dragon>((resolve, reject) =>{
+      this.http.get<Dragon>(this.apiUrl+ '/' + id).subscribe(response => {
+        resolve(response);
+      }), err => {
+        reject(err);
+      }
+    })
+  }
+
+  deletedragon(id){
+    return new Promise((resolve, reject) =>{
+      this.http.delete(this.apiUrl+"/"+id).subscribe(response => {
         resolve(response);
       }), err => {
         reject(err);
