@@ -55,3 +55,44 @@
     }
 }
 
+
+// Modal
+
+.modal-dragon {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.62);
+
+    > div {
+        background-color: white;
+        width: 80%;
+        padding: 20px;
+        border-radius: 4px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.69);
+    }
+
+
+    .header-form {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.23);
+        margin-bottom: 20px;
+
+        p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+}

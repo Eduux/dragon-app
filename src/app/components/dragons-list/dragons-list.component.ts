@@ -4,11 +4,15 @@ import { Dragon } from 'src/app/models/dragon';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+import { LoginService } from 'src/app/services/login.service';
+
 // Sweet alert
 import Swal from 'sweetalert2'
 // Loader
 import { NgxSpinnerService } from 'ngx-spinner';
-import { LoginService } from 'src/app/services/login.service';
+
 
 
 @Component({
@@ -19,11 +23,17 @@ import { LoginService } from 'src/app/services/login.service';
 export class DragonsListComponent {
   user: User;
   dragons: Dragon[];
+  dragonN: FormGroup;
+  modal: boolean = false;
 
   constructor(public dragonService: DragonService, public router: Router,
-    private spinner: NgxSpinnerService, public loginService: LoginService) {
+    private spinner: NgxSpinnerService, public loginService: LoginService, public fb: FormBuilder) {
     this.listDragons();
     this.user = this.loginService.userLogado;
+    this.dragonN = this.fb.group({
+      name: [''],
+      type: ['']
+    });
   }
 
   // Lista todos os dragoes por ordem alfabética orderna('nomedapropriedade')
@@ -40,6 +50,36 @@ export class DragonsListComponent {
       Swal.fire('Erro!', err, 'error');
     })
   }
+
+  // Verifica o formulário
+  verificaForm(){
+    if(this.dragonN.get('name').hasError('required')){
+      Swal.fire('Erro!','Preencha o campo nome','error'); 
+      return false;
+    }
+    if(this.dragonN.get('type').hasError('required')){
+      Swal.fire('Erro!','Preencha o campo tipo','error'); 
+      return false;
+    }
+
+    return true;
+  }
+
+  // Cadastrando Dragão
+  async newDragon(){
+    if(await this.verificaForm()){
+      this.dragonService.newDragon(this.dragonN.get('name').value, this.dragonN.get('type').value)
+      .then(response => {
+        this.dragons.push(response);
+        this.dragons.sort(this.ordena("name"));
+        this.modal = false;
+        Swal.fire('Sucesso!', 'Dragão cadastrado com sucesso!', 'success'); 
+      }).catch(err => {
+        Swal.fire('Erro!', err, 'error'); 
+      })
+    }
+  }
+
 
   // Deletar dragão
   deleteDragon(id, index){

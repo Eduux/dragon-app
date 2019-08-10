@@ -6,12 +6,15 @@ import { Dragon } from 'src/app/models/dragon';
 // Loader
 import { NgxSpinnerService } from 'ngx-spinner';
 
+// Sweet alert
+import Swal from 'sweetalert2'
+
 @Component({
   selector: 'app-dragon-detail',
   templateUrl: './dragon-detail.component.html',
   styleUrls: ['./dragon-detail.component.scss']
 })
-export class DragonDetailComponent implements OnInit {
+export class DragonDetailComponent {
   id: string;
   dragon: Dragon = {};
 
@@ -23,14 +26,15 @@ export class DragonDetailComponent implements OnInit {
     this.listDragon();
   }
 
-  ngOnInit() {
-  }
-
   listDragon(){
     this.spinner.show();
     this.dragonService.listDragon(this.id).then(response => {
       this.dragon = response;
       this.spinner.hide();
+    }).catch(err => {
+      console.log(err);
+      this.spinner.hide();
+      Swal.fire('Erro!', err, 'error');
     })
   }
 

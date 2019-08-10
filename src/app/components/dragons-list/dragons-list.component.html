@@ -15,6 +15,9 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-lg-12">
+            <button class="btn btn-success" (click)="modal = true;">Cadastrar novo dragão +</button>
+        </div>
         <div class="col-sm-6 col-lg-6 dragon-block" *ngFor="let dragon of dragons; let i = index">
             <div>
                 <h5>Nome: <b>{{dragon.name}}</b></h5>
@@ -28,6 +31,25 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="modal-dragon" *ngIf="modal">
+    <div>
+        <form [formGroup]="dragonN">
+            <div class="header-form"><p>Cadastrar <i (click)="modal = false;" class="fas fa-times-circle"></i></p></div>
+            <div class="form-group">
+                <input type="text" placeholder="Nome" class="form-control"
+                formControlName="name" #name required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Tipo" class="form-control"
+                formControlName="type" #type required>
+            </div>
+            <div class="form-group">
+                <input type="submit" (click)="newDragon()" value="Cadastrar" class="btn btn-primary">
+            </div>
+        </form>
     </div>
 </div>
 
