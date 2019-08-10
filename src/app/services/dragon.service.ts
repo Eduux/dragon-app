@@ -40,6 +40,17 @@ export class DragonService {
     })
   }
 
+  editDragon(dragon){
+    return new Promise((resolve, reject) =>{
+      this.http.put(this.apiUrl+ '/' + dragon.id, {name: dragon.name, type: dragon.type}).subscribe(response => {
+        resolve(response);
+      }), err => {
+        reject(err);
+      }
+    })
+  }
+  
+
   deletedragon(id){
     return new Promise((resolve, reject) =>{
       this.http.delete(this.apiUrl+"/"+id).subscribe(response => {

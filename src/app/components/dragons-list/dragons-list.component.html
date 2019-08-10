@@ -26,7 +26,7 @@
 
                 <div class="acoes-dragon">
                     <i [routerLink]="['/dragon', dragon.id]"  class="fas fa-eye"></i>
-                    <i class="fas fa-edit"></i>
+                    <i (click)="openEdit(i, dragon)" class="fas fa-edit"></i>
                     <i (click)="deleteDragon(dragon.id, i)" class="fas fa-trash-alt"></i>
                 </div>
             </div>
@@ -48,6 +48,25 @@
             </div>
             <div class="form-group">
                 <input type="submit" (click)="newDragon()" value="Cadastrar" class="btn btn-primary">
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-dragon" *ngIf="modalEdit">
+    <div>
+        <form [formGroup]="dragonN">
+            <div class="header-form"><p>Editar <i (click)="modalEdit = false;" class="fas fa-times-circle"></i></p></div>
+            <div class="form-group">
+                <input type="text" placeholder="Nome" class="form-control"
+                formControlName="name" #name required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Tipo" class="form-control"
+                formControlName="type" #type required>
+            </div>
+            <div class="form-group">
+                <input type="submit" (click)="editDragon()" value="Cadastrar" class="btn btn-primary">
             </div>
         </form>
     </div>

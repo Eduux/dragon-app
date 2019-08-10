@@ -25,12 +25,15 @@ export class DragonsListComponent {
   dragons: Dragon[];
   dragonN: FormGroup;
   modal: boolean = false;
+  modalEdit: boolean = false;
+  index: number;
 
   constructor(public dragonService: DragonService, public router: Router,
     private spinner: NgxSpinnerService, public loginService: LoginService, public fb: FormBuilder) {
     this.listDragons();
     this.user = this.loginService.userLogado;
     this.dragonN = this.fb.group({
+      id: [''],
       name: [''],
       type: ['']
     });
@@ -51,13 +54,13 @@ export class DragonsListComponent {
     })
   }
 
-  // Verifica o formulário
-  verificaForm(){
-    if(this.dragonN.get('name').hasError('required')){
+  // Verifica o formulário para nao deixar preencher vazio
+  verificaForm(name, type){
+    if(name){
       Swal.fire('Erro!','Preencha o campo nome','error'); 
       return false;
     }
-    if(this.dragonN.get('type').hasError('required')){
+    if(type){
       Swal.fire('Erro!','Preencha o campo tipo','error'); 
       return false;
     }
@@ -67,13 +70,48 @@ export class DragonsListComponent {
 
   // Cadastrando Dragão
   async newDragon(){
-    if(await this.verificaForm()){
+    if(await this.verificaForm(this.dragonN.get('name').hasError('required'), this.dragonN.get('type').hasError('required'))){
       this.dragonService.newDragon(this.dragonN.get('name').value, this.dragonN.get('type').value)
       .then(response => {
         this.dragons.push(response);
         this.dragons.sort(this.ordena("name"));
         this.modal = false;
+        this.dragonN.controls["name"].setValue("");
+        this.dragonN.controls["type"].setValue("");
         Swal.fire('Sucesso!', 'Dragão cadastrado com sucesso!', 'success'); 
+      }).catch(err => {
+        Swal.fire('Erro!', err, 'error'); 
+      })
+    }
+  }
+
+  // Abre modal dragão e preenche para edicao
+  async openEdit(index, dragon){
+    this.modalEdit = true;
+    this.index = index; 
+    this.dragonN.controls["id"].setValue(dragon.id);
+    this.dragonN.controls["name"].setValue(dragon.name);
+    this.dragonN.controls["type"].setValue(dragon.type);
+  }
+
+  // Editando dragão
+  async editDragon(){
+    let dragon = {
+      id: this.dragonN.get('id').value,
+      name: this.dragonN.get('name').value,
+      type: this.dragonN.get('type').value
+    }
+    if(await this.verificaForm(this.dragonN.get('name').hasError('required'), this.dragonN.get('type').hasError('required'))){
+      this.dragonService.editDragon(dragon)
+      .then(response => {
+        console.log(response);
+        this.dragons[this.index] = response;
+        this.dragons.sort(this.ordena("name"));
+        this.modalEdit = false;
+        this.dragonN.controls["id"].setValue("");
+        this.dragonN.controls["name"].setValue("");
+        this.dragonN.controls["type"].setValue("");
+        Swal.fire('Sucesso!', 'Dragão editado com sucesso!', 'success'); 
       }).catch(err => {
         Swal.fire('Erro!', err, 'error'); 
       })
