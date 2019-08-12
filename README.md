@@ -21,6 +21,10 @@ NGX SPINNER para loadings
 
 ## Rodando a aplicação
 
+$ npm instal
+
+Para instalar as dependencias
+
 $ ng serve 
 
 http://localhost:4200
