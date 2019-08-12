@@ -30,8 +30,14 @@ export class DragonsListComponent {
 
   constructor(public dragonService: DragonService, public router: Router,
     private spinner: NgxSpinnerService, public loginService: LoginService, public fb: FormBuilder) {
+
+    // Listar dragoes
     this.listDragons();
+
+    // Get user logado para mostar login
     this.user = this.loginService.userLogado;
+
+    // Form builder para melhor validação dos campos
     this.dragonN = this.fb.group({
       id: [''],
       name: [''],

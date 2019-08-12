@@ -32,7 +32,7 @@ export class DragonService {
 
   newDragon(name, type){
     return new Promise((resolve, reject) =>{
-      this.http.post(this.apiUrl, {name: name, type: type}).subscribe(response => {
+      this.http.post(this.apiUrl, {createdAt: new Date(), name: name, type: type}).subscribe(response => {
         resolve(response);
       }), err => {
         reject(err);
