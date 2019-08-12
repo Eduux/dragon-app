@@ -24,12 +24,12 @@ describe('DragonService', () => {
     })
   });
 
-  it('listar dragão', (done) => {
-    const service: DragonService = TestBed.get(DragonService)
-    service.listDragon(60).then(res => {
-      expect(res.name).toBe("Arthur");
-      done();
-    })
-  });
+  // it('listar dragão', (done) => {
+  //   const service: DragonService = TestBed.get(DragonService)
+  //   service.listDragon(60).then(res => {
+  //     expect(res.name).toBe("Arthur");
+  //     done();
+  //   })
+  // });
 
 });
