@@ -1,7 +1,7 @@
 <div>
     <nav class="navbar navbar-dark bg-dark new-nav">
         <div class="container">
-            <a class="navbar-brand">Usuário: {{user.login}}</a>
+            <a class="navbar-brand" *ngIf="user">Usuário: {{user.login}}</a>
             <p (click)="logout()">Sair <i class="fas fa-sign-out-alt"></i></p>
         </div>
     </nav>
