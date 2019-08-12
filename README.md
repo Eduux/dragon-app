@@ -29,6 +29,10 @@ $ ng serve
 
 http://localhost:4200
 
+$ ng test
+
+Para rodas os testes
+
 ## Estrutura
 
 3 components 
