@@ -45,7 +45,7 @@ export class DragonsListComponent {
     });
   }
 
-  // Lista todos os dragoes por ordem alfabética orderna('nomedapropriedade')
+  // Lista todos os dragoes por ordem alfabética orderna('nomedapropriedade')
   listDragons(){
     this.spinner.show();
     this.dragonService.listDragons()

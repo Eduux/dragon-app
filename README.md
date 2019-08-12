@@ -6,7 +6,7 @@ Projeto para consumo da API de dragões, utlizando Angular.
 
 Para entrar na aplicação use as seguintes credenciais:
 
-Login: teste
+Login: teste  
 Senha: 12qw
 
 ## Utilizado no projeto
@@ -16,7 +16,7 @@ CSS:
 -> SCSS  
 -> Boostrap 4
 
-SweetAlert 2 para alerts e prompts
+SweetAlert 2 para alerts e prompts  
 NGX SPINNER para loadings
 
 ## Rodando a aplicação
@@ -43,7 +43,7 @@ Para rodas os testes
 
 Todas as rotas protegidas pelos guards/auth, guards/logged
 
--> Logged guard, canActivate na rota de login, verificando se o usuário já está logado para enviar ele devolta para a home
+-> Logged guard, canActivate na rota de login, verificando se o usuário já está logado para enviar ele devolta para a home  
 -> Auth Guard, canActivate em todas as rodas menos a de login, verificando se o usuário está logado, se não envia ele devolta para o login
 
 Requisições:
